@@ -1,0 +1,181 @@
+// Variables
+$color-primario: #e64a19;
+$color-secundario: #4CAF50;
+$color-fondo: #f5f5f5;
+$color-texto: #333;
+$fuente-principal: 'Roboto', sans-serif;
+$breakpoint-mobile: 576px;
+$breakpoint-tablet: 768px;
+$breakpoint-desktop: 1024px;
+
+// Reset y estilos base
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $fuente-principal;
+  color: $color-texto;
+  background-color: $color-fondo;
+  line-height: 1.6;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+// Accesibilidad
+.saltar-navegacion {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: $color-primario;
+  color: white;
+  padding: 8px;
+  z-index: 100;
+  
+  &:focus {
+    top: 0;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+// Layout
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+// Media queries
+@mixin mobile {
+  @media (min-width: $breakpoint-mobile) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: $breakpoint-tablet) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $breakpoint-desktop) {
+    @content;
+  }
+}
+
+// Componentes específicos
+.header {
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  padding: 1rem 0;
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    @include tablet {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+}
+
+.nav-principal {
+  width: 100%;
+  
+  ul {
+    list-style: none;
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    
+    &.show {
+      display: flex;
+    }
+    
+    @include tablet {
+      display: flex !important;
+      flex-direction: row;
+      width: auto;
+    }
+  }
+  
+  li {
+    margin: 10px 0;
+    
+    @include tablet {
+      margin: 0 15px;
+    }
+  }
+  
+  a {
+    color: $color-texto;
+    text-decoration: none;
+    font-weight: 500;
+    
+    &:hover, &:focus {
+      color: $color-primario;
+    }
+    
+    &[aria-current="page"] {
+      color: $color-primario;
+      border-bottom: 2px solid $color-primario;
+    }
+  }
+}
+
+.menu-toggle {
+  display: block;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  
+  @include tablet {
+    display: none;
+  }
+  
+  .hamburger {
+    display: block;
+    position: relative;
+    width: 24px;
+    height: 2px;
+    background: $color-texto;
+    
+    &:before, &:after {
+      content: '';
+      position: absolute;
+      width: 24px;
+      height: 2px;
+      background: $color-texto;
+      left: 0;
+    }
+    
+    &:before {
+      top: -6px;
+    }
+    
+    &:after {
+      bottom: -6px;
+    }
+  }
+}
